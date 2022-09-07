@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   ChakraProvider,
   Box,
@@ -11,6 +11,17 @@ import {
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import { Logo } from './Logo';
+
+const [account, setAccount] = useState(null);
+
+useEffect(() => {
+  async function initAccount() {
+    // get account info from the blockchain
+    let acc = await connection.getAccountInfo(wallet.publicKey);
+    setAccount(acc);
+  }
+  initAccount();
+}, []);
 
 function App() {
   return (
